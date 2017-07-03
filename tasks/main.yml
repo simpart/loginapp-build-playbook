@@ -1,0 +1,5 @@
+
+- name: set httpd rewrite config
+  template: src=http.conf.j2
+            dest=/etc/chrony.conf
+            mode=0755
