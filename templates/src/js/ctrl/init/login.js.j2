@@ -1,0 +1,28 @@
+/**
+ * @file login.js
+ * @brief login view
+ */
+try {
+    let mf    = require('mofron');
+    let Login = require('mofron-tmpl-login');
+    
+    let auth_cb = (msg, lgn) => {
+        try {
+            console.log(msg);
+        } catch (e) {
+            throw new Error(e.stack);
+        }
+    }
+    
+    new Login({
+        title   : "{{ appname }}",
+        setAuth : new mf.Param(
+                      './api/login/auth.php',
+                      auth_cb
+                  ),
+        visible : true
+    });
+    
+} catch (e) {
+    console.error(e.stack);
+}

@@ -164,7 +164,7 @@ DocumentRoot "/var/www/html"
     
     RewriteEngine on
     RewriteCond %{REQUEST_URI} /api/*
-    RewriteRule .* {{ rewrite }}
+    RewriteRule .* src/php/route/ctrl.php
     
 </Directory>
 

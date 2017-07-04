@@ -1,5 +1,51 @@
 
 - name: set httpd rewrite config
-  template: src=http.conf.j2
-            dest=/etc/chrony.conf
+  template: src=httpd.conf.j2
+            dest=/etc/httpd/conf/httpd.conf
             mode=0755
+
+- name: restart apache server
+  become: yes
+  command: systemctl restart httpd
+
+- name: send config for develop
+  copy: src=./files/conf/webpack
+        dest={{ prjpath }}/conf
+
+- name: send source directory
+  copy: src=./files/src
+        dest={{ prjpath }}/
+
+- name: create source inner directory (ctrl)
+  file: path={{ prjpath }}/src/js/ctrl/init
+        state=directory
+
+- name: create source inner directory (conf)
+  file: path={{ prjpath }}/src/js/conf
+        state=directory
+
+- name: create source inner directory (dist)
+  file: path={{ prjpath }}/src/js/dist
+        state=directory
+
+- name: send js source template (login)
+  template: src=src/js/ctrl/init/login.js.j2
+            dest={{ prjpath }}/src/js/ctrl/init/login.js
+            mode=0755
+
+- name: send index file
+  copy: src=./files/index.php
+        dest={{ prjpath }}
+
+- name: send build tool
+  copy: src=./files/tool/build.sh
+        mode=0755
+        dest={{ prjpath }}/tool
+
+- name: install mofron modules
+  command: npm install --save-dev mofron-tmpl-login chdir={{ prjpath }}
+
+- name: execute build appfront
+  command: ./build.sh chdir={{ prjpath }}/tool
+
+
