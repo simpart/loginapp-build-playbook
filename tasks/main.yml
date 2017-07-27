@@ -1,9 +1,7 @@
 
-- name: install blowfish crypt module
-  command: pear install Crypt_Blowfish
-
 - name: install Net_URL_Mapper
-  command: pear install --alldeps Net_URL_Mapper-beta
+  pear: name=Net_URL_Mapper-beta
+        state=latest
 
 - name: install latest version of git
   yum: name=git
@@ -27,7 +25,10 @@
         dest={{ prjpath }}/
 
 - name: install tetraring
-  command: git clone https://github.com/simpart/tetraring4php.git ttr chdir={{ prjpath }}/src/php
+  git: repo=https://github.com/simpart/tetraring4php.git
+       dest={{ prjpath }}/src/php/ttr version=master
+
+#  command: git clone https://github.com/simpart/tetraring4php.git ttr chdir={{ prjpath }}/src/php
 
 - name: create source inner directory (ctrl)
   file: path={{ prjpath }}/src/js/ctrl/init
@@ -41,10 +42,20 @@
   file: path={{ prjpath }}/src/js/dist
         state=directory
 
+- name: create source inner directory (dist)
+  file: path={{ prjpath }}/src/php/define
+        state=directory
+
 - name: send js source template (login)
   template: src=src/js/ctrl/init/login.js.j2
             dest={{ prjpath }}/src/js/ctrl/init/login.js
             mode=0755
+
+- name: send php source template (common define)
+  template: src=src/php/define/common.php.j2
+            dest={{ prjpath }}/src/php/define/common.php
+            mode=0755
+
 
 - name: send index file
   copy: src=./files/index.php

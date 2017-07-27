@@ -16,12 +16,12 @@ try {
     
     new Login({
         title   : "{{ appname }}",
-        setAuth : new mf.Param(
-                      './api/login/auth.php',
+        authUri : new mf.Param(
+                      './api/auth/login',
                       auth_cb
                   ),
         hash    : new mf.Param(
-                      'blowfish',
+                      'aes-256-cbc',
                       ''
                   ),
         visible : true
