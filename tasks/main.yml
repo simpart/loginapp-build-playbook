@@ -1,4 +1,10 @@
 
+- name: install blowfish crypt module
+  command: pear install Crypt_Blowfish
+
+- name: install Net_URL_Mapper
+  command: pear install --alldeps Net_URL_Mapper-beta
+
 - name: set httpd rewrite config
   template: src=httpd.conf.j2
             dest=/etc/httpd/conf/httpd.conf
