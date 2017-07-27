@@ -5,6 +5,10 @@
 - name: install Net_URL_Mapper
   command: pear install --alldeps Net_URL_Mapper-beta
 
+- name: install latest version of git
+  yum: name=git
+       state=latest
+
 - name: set httpd rewrite config
   template: src=httpd.conf.j2
             dest=/etc/httpd/conf/httpd.conf
@@ -21,6 +25,9 @@
 - name: send source directory
   copy: src=./files/src
         dest={{ prjpath }}/
+
+- name: install tetraring
+  command: git clone https://github.com/simpart/tetraring4php.git ttr chdir={{ prjpath }}/src/php
 
 - name: create source inner directory (ctrl)
   file: path={{ prjpath }}/src/js/ctrl/init
