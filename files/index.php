@@ -4,7 +4,7 @@
         <meta charset='utf-8'>
         <?php
             try { 
-                require_once(__DIR__ . '/src/php/ctrl/login.php');
+                require_once(__DIR__ . '/src/php/auth/func/check.php');
                 if (true === \login\isLoggedIn()) {
                     echo "<script src='./src/js/dist/main.js' defer></script>" . PHP_EOL;
                 } else {

@@ -1,6 +1,6 @@
 <?php
 
-
+namespace login;
 /**
  * check wether access user is logged in.
  * 

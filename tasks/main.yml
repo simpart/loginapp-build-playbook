@@ -28,8 +28,6 @@
   git: repo=https://github.com/simpart/tetraring4php.git
        dest={{ prjpath }}/src/php/ttr version=master
 
-#  command: git clone https://github.com/simpart/tetraring4php.git ttr chdir={{ prjpath }}/src/php
-
 - name: create source inner directory (ctrl)
   file: path={{ prjpath }}/src/js/ctrl/init
         state=directory
@@ -56,10 +54,13 @@
             dest={{ prjpath }}/src/php/define/common.php
             mode=0755
 
-
 - name: send index file
   copy: src=./files/index.php
         dest={{ prjpath }}
+
+- name: delete index html file
+  file: path={{ prjpath }}/index.html
+        state=absent
 
 - name: send build tool
   copy: src=./files/tool/build.sh
