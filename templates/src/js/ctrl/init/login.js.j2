@@ -15,16 +15,12 @@ try {
     }
     
     new Login({
-        title   : "{{ appname }}",
-        authUri : new mf.Param(
-                      './api/auth/login',
-                      auth_cb
-                  ),
-        hash    : new mf.Param(
-                      'aes-256-cbc',
-                      ''
-                  ),
-        visible : true
+        title    : "{{ appname }}",
+        authConf : new mf.Param(
+                       './api/auth/login',
+                       auth_cb
+                   ),
+        visible  : true
     });
     
 } catch (e) {
